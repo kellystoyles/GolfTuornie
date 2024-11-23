@@ -49,6 +49,7 @@ public class MemberController {
     public GolfMember updateGolfMember(@RequestBody GolfMember updatedGolfMember, @PathVariable long id) {
         return memberService.updateGolfMember(updatedGolfMember);
     }
+    
     @DeleteMapping("/GolfMember/{id}")
     public void deleteMember(@PathVariable Long id) {
         memberService.deleteMember(id);
