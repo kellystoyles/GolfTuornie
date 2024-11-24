@@ -1,0 +1,68 @@
+GolfTournie API Documentation
+
+Golf Members API:
+Search by name
+- Endpoint: `GET /api/GolfMember/name/{name}`
+- Description: Retrieves golf members whose names contain the specified string.
+- Implementation: `MemberController.getByName()` method uses `MemberService.searchByName()`.
+- Example: `GET /api/GolfMember/name/John`
+
+Search by ID
+- Endpoint: `GET /api/GolfMember/id/{id}`
+- Description: Retrieves a specific golf member by their unique ID.
+- Implementation: `MemberController.getByID()` method uses `MemberService.findById()`.
+- Example: `GET /api/GolfMember/id/1`
+
+Search by start date
+- Endpoint: `GET /api/GolfMember/date/{startDate}`
+- Description: Retrieves golf members who started their membership on the specified date.
+- Implementation: `MemberController.getByStartDate()` method uses `MemberService.findByStartDate()`.
+- Example: `GET /api/GolfMember/date/2023-01-01`
+
+Search by phone
+- Endpoint: `GET /api/GolfMember/phone/{phone}`
+- Description: Retrieves golf members with the specified phone number.
+- Implementation: `MemberController.getByPhone()` method uses `MemberService.searchByPhone()`.
+- Example: `GET /api/GolfMember/phone/1234567890`
+
+Get all members
+- Endpoint: `GET /api/GolfMember`
+- Description: Retrieves all golf members in the database.
+- Implementation: `MemberController.getAllGolfMembers()` method uses `MemberService.findAllGolfMembers()`.
+- Example: `GET /api/GolfMember`
+
+
+Tournaments API:
+Search by ID
+- Endpoint: `GET /api/Tournament/{id}`
+- Description: Retrieves a specific tournament by its unique ID.
+- Implementation: `TournamentController.getByID()` method uses `TournamentService.findById()`.
+- Example: `GET /api/Tournament/1`
+
+Search by name
+- Endpoint: `GET /api/Tournament/name/{name}`
+- Description: Retrieves tournaments with the specified name.
+- Implementation: `TournamentController.getByName()` method uses `TournamentService.findByName()`.
+- Example: `GET /api/Tournament/name/Spring Championship`
+
+Search by location
+- Endpoint: `GET /api/Tournament/location/{location}`
+- Description: Retrieves tournaments held at the specified location.
+- Implementation: `TournamentController.getByLocation()` method uses `TournamentService.findByLocation()`.
+- Example: `GET /api/Tournament/location/St. John's`
+
+Get all tournaments
+- Endpoint: `GET /api/Tournament`
+- Description: Retrieves all tournaments in the database.
+- Implementation: `TournamentController.findAllTournaments()` method uses `TournamentService.findAllTournaments()`.
+- Example: `GET /api/Tournament`
+
+
+Running the Project in Docker
+1. Ensure Docker and Docker Compose are installed on your system.
+2. Navigate to the project root directory.
+3. Build the project: `mvn clean package`
+4. Build and start Docker containers: `docker-compose up --build`
+5. The application will be accessible at `http://localhost:8081`
+
+Note: The Docker configuration is set up for M1/M2 Macs. If you're using a different system, you may need to adjust the `platform` settings in the `docker-compose.yml` file.
