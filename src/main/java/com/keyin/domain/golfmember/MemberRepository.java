@@ -13,6 +13,6 @@ public interface MemberRepository extends CrudRepository<GolfMember, Long> {
 
     List<GolfMember> findByStartDate(LocalDate date);
 
-  //  List <GolfMember> findById(Long id);
+
 }
 
