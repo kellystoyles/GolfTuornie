@@ -1,0 +1,20 @@
+services:
+      app:
+        build: .
+        platform: linux/arm64  # For M1/M2 Macs
+        ports:
+          - "8081:8081"
+        depends_on:
+          - db
+        environment:
+          SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/golf_tournament_db
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: password
+      db:
+        image: mysql:8.0.32
+        platform: linux/arm64  # For M1/M2 Macs
+        environment:
+          MYSQL_DATABASE: golf_tournament_db
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+          - "3306:3306"

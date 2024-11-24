@@ -1,4 +1,5 @@
 package com.keyin.domain.golftournament;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.keyin.domain.golfmember.GolfMember;
 
 import jakarta.persistence.*;
@@ -27,7 +28,10 @@ public class Tournament {
             joinColumns = @JoinColumn(name = "tournament_id"),
             inverseJoinColumns = @JoinColumn(name = "member_id")
     )
+    @JsonManagedReference
     private Set<GolfMember> participatingMembers = new HashSet<>();
+
+
 
     public Tournament() {
     }
@@ -93,5 +97,15 @@ public class Tournament {
         return participatingMembers;}
     public void setParticipatingMembers(Set<GolfMember> participatingMembers) {
         this.participatingMembers = participatingMembers;
+    }
+
+    public void addMember(GolfMember member) {
+        this.participatingMembers.add(member);
+        member.getTournaments().add(this);
+    }
+
+    public void removeMember(GolfMember member) {
+        this.participatingMembers.remove(member);
+        member.getTournaments().remove(this);
     }
 }

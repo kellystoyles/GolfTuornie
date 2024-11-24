@@ -45,8 +45,18 @@ import java.util.List;
         return tournamentRepository.findByStartDate(startdate);
     }
 
+  //  public Tournament findById(Long id) {
+  //      return tournamentRepository.findById(id).orElse(null);
+ //   }
+
     public Tournament findById(Long id) {
-        return tournamentRepository.findById(id).orElse(null);
+        Tournament tournament = tournamentRepository.findById(id).orElse(null);
+        if (tournament == null) {
+            System.out.println("Tournament with id " + id + " not found");
+        } else {
+            System.out.println("Found tournament: " + tournament.getName());
+        }
+        return tournament;
     }
 
     public Tournament updateTournament(Tournament updatedTournament) {
@@ -67,12 +77,13 @@ import java.util.List;
     public Tournament addMemberToTournament(Long tournamentId, Long memberId) {
         Tournament tournament = this.findById(tournamentId);
         GolfMember member = memberService.findById(memberId);
-        if (tournament != null && member != null) {
-            tournament.getParticipatingMembers().add(member);
-            return tournamentRepository.save(tournament);
+        if (tournament == null || member == null) {
+            throw new RuntimeException("Tournament or Member not found");
         }
-        return null;
+        tournament.getParticipatingMembers().add(member);
+        return tournamentRepository.save(tournament);
     }
+
     public List<Tournament> createTournaments(List<Tournament> tournaments) {
         return (List<Tournament>) tournamentRepository.saveAll(tournaments);
     }
@@ -80,7 +91,6 @@ import java.util.List;
     public void deleteTournament(Long id) {
         tournamentRepository.deleteById(id);
     }
-
 
 }
 
