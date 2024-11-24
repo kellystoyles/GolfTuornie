@@ -33,7 +33,6 @@ public class TournamentController {
     }
 
 
-
     @PutMapping("/Tournament/{id}")
     public Tournament updateTournament(@RequestBody Tournament updatedTournament, @PathVariable long id) {
         return tournamentService.updateTournament(updatedTournament);
@@ -48,6 +47,7 @@ public class TournamentController {
     public List<Tournament> createTournaments(@RequestBody List<Tournament> newTournaments) {
         return tournamentService.createTournaments(newTournaments);
     }
+
     @PostMapping("/Tournament/{tournamentId}/addMember/{memberId}")
     public Tournament addMemberToTournament(@PathVariable Long tournamentId, @PathVariable Long memberId) {
         return tournamentService.addMemberToTournament(tournamentId, memberId);
@@ -56,6 +56,8 @@ public class TournamentController {
     public void deleteTournament(@PathVariable Long id) {
         tournamentService.deleteTournament(id);
     }
+
+
 
     }
 

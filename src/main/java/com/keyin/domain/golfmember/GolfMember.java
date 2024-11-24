@@ -1,4 +1,5 @@
 package com.keyin.domain.golfmember;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.keyin.domain.golftournament.Tournament;
 
 import jakarta.persistence.*;
@@ -19,14 +20,6 @@ public class GolfMember {
     private LocalDate startDate;
     private Integer membershipDuration;
 
-    @ManyToMany
-    @JoinTable(
-            name = "tournament_members",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "tournament_id")
-    )
-    private Set<Tournament> tournaments = new HashSet<>();
-
     public GolfMember() {
     }
 
@@ -39,6 +32,7 @@ public class GolfMember {
         this.startDate = startDate;
         this.membershipDuration = membershipDuration;
     }
+
 
     public Long getId() {
         return id;}
@@ -88,10 +82,23 @@ public class GolfMember {
         this.membershipDuration = membershipDuration;
     }
 
+    @ManyToMany(mappedBy = "participatingMembers")
+    @JsonBackReference
+    private Set<Tournament> tournaments = new HashSet<>();
 
     public Set<Tournament> getTournaments() {
         return tournaments;}
     public void setTournaments(Set<Tournament> tournaments) {
         this.tournaments = tournaments;
+    }
+
+    public void addTournament(Tournament tournament) {
+        this.tournaments.add(tournament);
+        tournament.getParticipatingMembers().add(this);
+    }
+
+    public void removeTournament(Tournament tournament) {
+        this.tournaments.remove(tournament);
+        tournament.getParticipatingMembers().remove(this);
     }
 }

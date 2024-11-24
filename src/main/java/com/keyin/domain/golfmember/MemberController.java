@@ -34,6 +34,11 @@ public class MemberController {
         return memberService.searchByPhone(phone);
     }
 
+    @GetMapping("/GolfMember")
+    public List<GolfMember> getAllGolfMembers() {
+        return memberService.findAllGolfMembers();
+    }
+
     @PostMapping("/GolfMember")
     public GolfMember createGolfMember(@RequestBody GolfMember newGolfMember) {
         return memberService.createGolfMember(newGolfMember);
@@ -49,8 +54,9 @@ public class MemberController {
     public GolfMember updateGolfMember(@RequestBody GolfMember updatedGolfMember, @PathVariable long id) {
         return memberService.updateGolfMember(updatedGolfMember);
     }
+
     @DeleteMapping("/GolfMember/{id}")
-    public void deleteMember(@PathVariable Long id) {
-        memberService.deleteMember(id);
+    public void deleteGolfMember(@PathVariable Long id) {
+        memberService.deleteGolfMember(id);
     }
 }
